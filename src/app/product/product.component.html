@@ -1,0 +1,61 @@
+	<div class="row product p-4">
+		<div class="card-columns" >
+
+			<!-- Image Loop  -->
+			<ng-container *ngFor="let product of products; let i = index;">
+				<div class="card" *ngIf="product.image_url">
+					<img src="{{product.image_url}}" class="img-thumbnail"/>
+					<div class="card-img-overlay h-100 d-flex flex-column justify-content-center">
+						<div class="card-text border-0 bg-semitransparent text-center">
+        				<span (click)="showModal(i)" class="material-icons">edit</span>
+    					</div>
+    					<div class="card-close">
+    							<span (click)="deleteImage(i)" class="material-icons">close</span>
+    					</div>
+					</div>
+
+
+					<!-- The Modal -->
+				  <div class="modal show" id="myModal" role="dialog" *ngIf="isOpen==i">
+				    <div class="modal-dialog">
+				      <div class="modal-content">
+				      
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <h4 class="modal-title">Edit Image</h4>
+				          <button type="button" class="close" (click)="hideModal()">&times;</button>
+				        </div>
+				        
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				          <div class="row">
+				          	<div class="col-md-6">
+				          		<h5>{{isNotOriginal<=-1 ? 'Original Image' : 'Changed Image'}}</h5>
+				          		<p><img src="{{product.image_url}}" class="img-thumbnail"/></p>
+				          	</div>
+				          	<div class="col-md-6">
+				          		<h5>New Image</h5>
+				          		<p class="image-placeholder"><img *ngIf="newImageUrl" src="{{newImageUrl}}" class="img-thumbnail"/></p>
+				          		<div class="mt-4 mb-3">
+				          			<input type="file" (change)="onSelectFile($event,i)"/>
+				          		</div>
+				          	</div>
+				          </div>
+				        </div>
+				        
+				        <!-- Modal footer -->
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-primary" [disabled]="newImageUrl?false:true" (click)="hideModal()">Confirm Image</button>
+				          <button type="button" class="btn btn-primary" (click)="resetImage(i)">Reset</button>
+				        </div>
+				        
+				      </div>
+				    </div>
+				  </div>
+			</div>
+		</ng-container>
+			<!-- Loop End -->
+
+		</div>
+    </div>
+
